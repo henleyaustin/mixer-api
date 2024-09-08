@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "windows-audio-api", "windows-audio-api.csproj", "{705F6F39-23DC-49CA-A1E6-E93072E114DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mixer_api", "mixer_api.csproj", "{705F6F39-23DC-49CA-A1E6-E93072E114DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

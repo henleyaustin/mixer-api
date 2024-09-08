@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using windows_audio_api.Models;
+using mixer_api.Models;
 
-namespace windows_audio_api.Controllers
+namespace mixer_api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -39,31 +39,6 @@ namespace windows_audio_api.Controllers
             {
                 _logger.LogError(ex, $"Error setting volume for {request.ProcessId}");
                 return StatusCode(500, "An error occurred while setting the volume.");
-            }
-        }
-
-        /// <summary>
-        /// Gets the current volume for a specific application.
-        /// </summary>
-        /// <param name="appName">The name of the application.</param>
-        [HttpGet("get_volume/{appName}")]
-        public IActionResult GetVolume(string appName)
-        {
-            try
-            {
-                var volume = _audioManager.GetApplicationVolume(appName);
-                if (volume == -1)
-                {
-                    _logger.LogWarning($"Application {appName} not found.");
-                    return NotFound($"Application {appName} not found.");
-                }
-                _logger.LogInformation($"Volume for {appName} is {volume}");
-                return Ok(volume);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error getting volume for {appName}");
-                return StatusCode(500, "An error occurred while getting the volume.");
             }
         }
 

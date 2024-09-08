@@ -1,4 +1,4 @@
-﻿namespace windows_audio_api.Models
+﻿namespace mixer_api.Models
 {
     public class ProcessInfo
     {

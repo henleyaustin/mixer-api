@@ -1,0 +1,6 @@
+@mixer_api_HostAddress = http://localhost:5298
+
+GET {{mixer_api_HostAddress}}
+Accept: application/json
+
+###

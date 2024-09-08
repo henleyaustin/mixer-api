@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace windows_audio_api.Controllers
+namespace mixer_api.Controllers
 {
     [Route("[controller]")]
     public class HealthController : Controller

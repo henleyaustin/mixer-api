@@ -1,8 +1,8 @@
 ﻿using NAudio.CoreAudioApi;
 using System.Diagnostics;
-using windows_audio_api.Models;
+using mixer_api.Models;
 
-namespace windows_audio_api
+namespace mixer_api
 {
     public class AudioManager
     {
@@ -56,34 +56,6 @@ namespace windows_audio_api
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error setting volume for process {processId}.");
-            }
-        }
-
-        public float GetApplicationVolume(string processName)
-        {
-            try
-            {
-                var session = GetAudioSessionByName(processName);
-                if (session != null)
-                {
-                    if (session.SimpleAudioVolume != null)
-                    {
-                        return session.SimpleAudioVolume.Volume;
-                    }
-                    else
-                    {
-                        _logger.LogWarning($"Audio session for process {processName} does not have a volume control.");
-                        return -1; // No volume control found
-                    }
-                }
-
-                _logger.LogWarning($"Process {processName} not found.");
-                return -1; // Process not found
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error getting volume for process {processName}.");
-                return -1; // Error occurred
             }
         }
 
