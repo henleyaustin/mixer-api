@@ -46,7 +46,7 @@ namespace mixer_api.Controllers
         /// Retrieves a list of processes with audio sessions.
         /// </summary>
         [HttpGet("audio-processes")]
-        public IActionResult GetProcessesWithAudio()
+        public ActionResult<List<ProcessInfo[]>> GetProcessesWithAudio()
         {
             try
             {
