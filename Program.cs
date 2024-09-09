@@ -12,21 +12,16 @@ public class Program
         // Prompt the user for the port number
         int port = GetPortFromUser();
 
-        // Build the web application
         var builder = WebApplication.CreateBuilder(args);
 
-        // Add services to the container.
         builder.Services.ConfigureServices();
-
-        // Configure Kestrel with the certificate
-        ConfigureKestrel(builder, port);
-
         builder.Logging.ClearProviders();
-        builder.Logging.AddConsole(); // Log to the console
+        builder.Logging.AddConsole();
+
+        ConfigureKestrel(builder, port);
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         app.ConfigureMiddleware();
 
         // Get the local IP address
@@ -36,23 +31,21 @@ public class Program
         PrintServerInfo(ipAddresses, port);
 
         // Run the app on the specified IP addresses and port
-        app.Run($"https://0.0.0.0:{port}");
+        app.Run();
     }
 
     private static void ConfigureKestrel(WebApplicationBuilder builder, int port)
     {
-        // Load the certificate
-        var cert = new X509Certificate2("mycert.pfx", "MixerPass123");
-
         builder.WebHost.ConfigureKestrel(serverOptions =>
         {
-            // Bind to the local IP address with HTTPS using the certificate
+            // Bind to all network interfaces (0.0.0.0) on the specified port for HTTPS
             serverOptions.Listen(IPAddress.Any, port, listenOptions =>
             {
-                listenOptions.UseHttps(cert);
+                listenOptions.UseHttps();
             });
         });
     }
+
 
     private static int GetPortFromUser()
     {
@@ -63,11 +56,11 @@ public class Program
         // Use the default port if the user presses Enter without input
         if (string.IsNullOrWhiteSpace(portInput))
         {
-            port = 5001; // Default port
+            port = 5001;
         }
         else if (!int.TryParse(portInput, out port))
         {
-            port = 5001; // Default port if input is invalid
+            port = 5001;
             Console.WriteLine("Invalid input. Defaulting to port 5001.");
         }
 
